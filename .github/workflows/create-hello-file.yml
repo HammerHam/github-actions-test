@@ -10,25 +10,11 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
-        with:
-          persist-credentials: false  # We will set credentials manually
 
       - name: Create hello.txt with message
         run: echo "Hellow Hamid" > hello.txt
 
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Commit changes
-        run: |
-          git add hello.txt
-          git commit -m "Add hello.txt with greeting" || echo "No changes to commit"
-
-      - name: Push to repository
-        env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}
-          git push origin HEAD:main
+      - name: Commit and push file
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🤖 Add hello.txt with greeting"
