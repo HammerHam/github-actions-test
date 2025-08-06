@@ -1,5 +1,9 @@
 name: Create Hello File
 
+# 👇 Add this block to give write permissions to GITHUB_TOKEN
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
 
